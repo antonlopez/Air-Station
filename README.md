@@ -1,1 +1,2 @@
-# Air-Station
+# XBee-Tiva-C
+Tiva C Interface for XBee
