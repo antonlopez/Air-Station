@@ -41,7 +41,7 @@ static void IntDefaultHandler(void);
 //
 //*****************************************************************************
 extern void _c_int00(void);
-extern void UART_XbeeInt(void);
+//extern void MPU9250_InterruptHandler(void); /*Uncomment and add function to vector table*/
 
 //*****************************************************************************
 //
@@ -53,6 +53,9 @@ extern uint32_t __STACK_TOP;
 //*****************************************************************************
 //
 // External declarations for the interrupt handlers used by the application.
+
+
+extern void UART3_IntHandler(void);
 //
 //*****************************************************************************
 // To be added by user
@@ -89,7 +92,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // GPIO Port C
     IntDefaultHandler,                      // GPIO Port D
     IntDefaultHandler,                      // GPIO Port E
-    IntDefaultHandler,                           // UART0 Rx and Tx
+    IntDefaultHandler,                      // UART0 Rx and Tx
     IntDefaultHandler,                      // UART1 Rx and Tx
     IntDefaultHandler,                      // SSI0 Rx and Tx
     IntDefaultHandler,                      // I2C0 Master and Slave
@@ -143,7 +146,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // GPIO Port L
     IntDefaultHandler,                      // SSI2 Rx and Tx
     IntDefaultHandler,                      // SSI3 Rx and Tx
-         UART_XbeeInt,                      // UART3 Rx and Tx
+     UART3_IntHandler,                      // UART3 Rx and Tx
     IntDefaultHandler,                      // UART4 Rx and Tx
     IntDefaultHandler,                      // UART5 Rx and Tx
     IntDefaultHandler,                      // UART6 Rx and Tx

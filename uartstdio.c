@@ -123,7 +123,7 @@ static volatile uint32_t g_ui32UARTRxReadIndex = 0;
 // The base address of the chosen UART.
 //
 //*****************************************************************************
-static uint32_t g_ui32Base = 0;
+static uint32_t g_ui32Base = 2;
 
 //*****************************************************************************
 //
@@ -140,7 +140,7 @@ static const char * const g_pcHex = "0123456789abcdef";
 //*****************************************************************************
 static const uint32_t g_ui32UARTBase[3] =
 {
-    UART0_BASE, UART1_BASE, UART2_BASE
+    UART0_BASE, UART1_BASE, UART3_BASE
 };
 
 #ifdef UART_BUFFERED
@@ -151,7 +151,7 @@ static const uint32_t g_ui32UARTBase[3] =
 //*****************************************************************************
 static const uint32_t g_ui32UARTInt[3] =
 {
-    INT_UART0, INT_UART1, INT_UART2
+    INT_UART0, INT_UART1, INT_UART3
 };
 
 //*****************************************************************************
@@ -169,7 +169,7 @@ static uint32_t g_ui32PortNum;
 //*****************************************************************************
 static const uint32_t g_ui32UARTPeriph[3] =
 {
-    SYSCTL_PERIPH_UART0, SYSCTL_PERIPH_UART1, SYSCTL_PERIPH_UART2
+    SYSCTL_PERIPH_UART0, SYSCTL_PERIPH_UART1, SYSCTL_PERIPH_UART3
 };
 
 //*****************************************************************************
