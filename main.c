@@ -4,36 +4,47 @@
 #include <math.h>
 #include <stdio.h>
 #include "pwm.h"
+#include "uart.h"
 
 #define M_PI    3.14159265359
 
 int mi = 0;
-int dataReceived = 0;
 char xbee_data[3];
 char number[3];
 uint32_t val= 650 ;
+
+uint8_t dataReceived[100];
+char dataArray[100];
 
 
 
 //uint32_t duty = 250;
 
-void UartConfig(void);
-void joystick();
+
 
 int main(void) {
     SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
-    InitConsole();
+    //InitConsole();
     //Alarms_Init();
     I2C_Init();
     //UartConfig();
-    PwmConfig();
+      PwmConfig();
 
     // enable Interrupts
-      IntMasterEnable();
-      IntEnable(INT_UART3);
-      UARTIntEnable(UART3_BASE, UART_INT_RX | UART_INT_RT);
+
+    // DEFINE PWM VARIABLES
+           volatile uint32_t ui32Load; // Load count for PWM counter
+           uint32_t PA7_Z = 365;
+           uint32_t PA6_X = 135;
+           ui32Load = 5000;
 
 
+       // INITIALIZE PWM
+         // PwmConfig(ui32Load, PA6_X, PA7_Z);
+
+
+   // Initialize UART for XBee communications
+    UART_XbeeInit(115200);
 
     uint8_t id;
 
@@ -116,13 +127,20 @@ int main(void) {
 
 
 
+       // Send MPU data through XBee
+          UART_XBeeWriteString(Roll_String);
+          UART_XBeeWriteString(" ");
+          UART_XBeeWriteString(Pitch_String);
+          UART_XBeeWriteString("\n");
+
+
+       // Receive data from XBee
+          UART_XBeeRead(dataReceived, sizeof(dataReceived));
+          memcpy(dataArray,dataReceived, sizeof(dataReceived));
 
 
 
 
-
-       UARTprintf("%s", Pitch_String);
-       UARTprintf(" %s\n", Roll_String);
 
 
 
@@ -133,35 +151,6 @@ int main(void) {
     }
 }
 
-
-
-
-void UART3_IntHandler(void){
-
-        uint32_t ui32Status;
-        ui32Status = UARTIntStatus(UART3_BASE, true);    //get interrupt status
-                UARTIntClear(UART3_BASE, ui32Status);            //clear the asserted interrupts
-
-
-
-                while(UARTCharsAvail(UART3_BASE)) //loop while there are chars
-                {
-
-
-                xbee_data[mi] = UARTCharGetNonBlocking(UART3_BASE);
-                mi++;
-                dataReceived++;
-
-                }
-
-
-                mi=0;
-
-
-
-
-
-    }
 
 
 

@@ -55,7 +55,7 @@ extern uint32_t __STACK_TOP;
 // External declarations for the interrupt handlers used by the application.
 
 
-extern void UART3_IntHandler(void);
+extern void UART_XbeeInt(void);
 //
 //*****************************************************************************
 // To be added by user
@@ -146,7 +146,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // GPIO Port L
     IntDefaultHandler,                      // SSI2 Rx and Tx
     IntDefaultHandler,                      // SSI3 Rx and Tx
-     UART3_IntHandler,                      // UART3 Rx and Tx
+         UART_XbeeInt,                      // UART3 Rx and Tx
     IntDefaultHandler,                      // UART4 Rx and Tx
     IntDefaultHandler,                      // UART5 Rx and Tx
     IntDefaultHandler,                      // UART6 Rx and Tx

@@ -19,5 +19,4 @@
 
 
 
-
-void PwmConfig(void);
+void PwmConfig();
