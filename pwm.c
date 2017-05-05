@@ -2,7 +2,7 @@
 
 
 
-void PwmConfig(){
+void PwmConfig(uint32_t ui32Load, uint16_t Roll, uint16_t Pitch){
 
 
         //**********PWM*************

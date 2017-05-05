@@ -28,15 +28,19 @@ int main(void) {
     //Alarms_Init();
     I2C_Init();
     //UartConfig();
-      PwmConfig();
+
+    // DEFINE PWM VARIABLES
+     volatile uint32_t ui32Load; // Load count for PWM counter
+     uint32_t PA7_Z = 365;
+     uint32_t PA6_X = 135;
+     ui32Load = 5000;
+
+
+      PwmConfig( ui32Load, PA6_X, PA7_Z);
 
     // enable Interrupts
 
-    // DEFINE PWM VARIABLES
-           volatile uint32_t ui32Load; // Load count for PWM counter
-           uint32_t PA7_Z = 365;
-           uint32_t PA6_X = 135;
-           ui32Load = 5000;
+
 
 
        // INITIALIZE PWM
@@ -128,9 +132,9 @@ int main(void) {
 
 
        // Send MPU data through XBee
-          UART_XBeeWriteString(Roll_String);
-          UART_XBeeWriteString(" ");
           UART_XBeeWriteString(Pitch_String);
+          UART_XBeeWriteString(" ");
+          UART_XBeeWriteString(Roll_String);
           UART_XBeeWriteString("\n");
 
 
